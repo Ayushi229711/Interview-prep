@@ -55,8 +55,8 @@ public class InterviewService {
                     request.getRole(),
                     request.getDifficulty());
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            System.out.println("Gemini question generation failed, using fallback questions: " + e.getMessage());
+            generatedQuestions = getDefaultQuestions(request.getRole(), request.getDifficulty());
         }
 
         String[] lines = generatedQuestions.split("\n");
@@ -247,5 +247,15 @@ public class InterviewService {
                 .overallScore(overallScore)
                 .answers(answerDtos)
                 .build();
+    }
+
+    private String getDefaultQuestions(String role, String difficulty) {
+        return """
+        1. What core principles and best practices do you follow when working as a %s?
+        2. Describe a challenging project you worked on recently as a %s, and how you overcame key obstacles.
+        3. How do you approach error handling, testing, and debugging in a %s role?
+        4. What is a key technical trade-off you had to make in your recent %s project?
+        5. How do you stay updated with new technologies and updates relevant to a %s developer?
+        """.formatted(role, role, role, role, role);
     }
 }

@@ -20,7 +20,7 @@ public class GeminiService {
     private String callGemini(String prompt) {
 
 
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key="
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="
                 + apiKey;
 
         JsonObject textPart = new JsonObject();
